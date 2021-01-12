@@ -1,0 +1,22 @@
+class Solution:
+    def isBipartite(self, graph: List[List[int]]) -> bool:
+        visited = {}
+        queue = collections.deque()
+        
+        for i in range(len(graph)):
+            if i in visited:
+                continue
+            visited.update({i: True})
+            queue.append(i)
+            
+            while queue:
+                pos = queue.popleft()
+                color = visited[pos]
+                for j in graph[pos]:
+                    if j not in visited:
+                        visited[j]= not color
+                        queue.append(j)
+                    else:
+                        if visited[j]== color:
+                            return False
+            return True
